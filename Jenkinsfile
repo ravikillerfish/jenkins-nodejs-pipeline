@@ -16,7 +16,7 @@ pipeline {
             script {
                withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
                   sh 'npm install'
-                  sh 'npm' run sonar'
+                  sh 'npm run sonar'
                }
                timeout(20) {
                   def quality = waitForQualityGate()
