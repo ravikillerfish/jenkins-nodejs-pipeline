@@ -7,20 +7,19 @@ pipeline {
          }
       }
       stage('packiaging and sonarqube scaning'){
-         nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
-            steps {
-               script {
-                  withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
+         steps {
+            nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+	       withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
                      sh 'npm install'
                      sh 'npm run sonar'
-                  }
-                  timeout(20) {
-                     def quality = waitForQualityGate()
-                     if (quality.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                     }
-		  }
                }
+               timeout(20) {
+                  def quality = waitForQualityGate()
+                  if (quality.status != 'OK') {
+                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                  }
+               }
+
             }
          }
       }
