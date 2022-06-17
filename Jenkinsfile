@@ -8,7 +8,7 @@ pipeline {
       }
       stage('packiaging and sonarqube scaning'){
          steps {
-            nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+            nodejs(nodeJSInstallationName: 'nodejs-sonarqube') {
 	       withSonarQubeEnv(credentialsId: 'sonarqube-secret') {
                      sh 'npm install'
                      sh 'npm run sonar'
