@@ -9,7 +9,7 @@ pipeline {
       stage('packiaging and sonarqube scaning'){
          steps {
             nodejs(nodeJSInstallationName: 'nodejs-sonarqube') {
-	       withSonarQubeEnv(installationName: 'SonarCloudOne',credentialsId: 'sonarqube-secret') {
+	       withSonarQubeEnv(installationName: 'sonarqube',credentialsId: 'sonarqube-secret') {
                      sh 'npm install'
                      sh 'npm run sonar'
                }
